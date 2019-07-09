@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Categories</title>
+</head>
+<body>
+    <div class="row" layout:fragment="content">
+        <div class="col-2"></div>
+
+        <div class="col align-self-center">
+            <h1>Movie Categories</h1>
+
+            <a th:href="@{/categories/create}" class="btn btn-primary">Add Category</a><hr/>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.type}"></td>
+                    <td>
+                        <a th:href="@{/categories/edit/} + ${category.id}">Edit</a>
+                    </td>
+                    <td>
+                        <a href="#" class="text-danger delete-category" th:id="${category.id}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-2"></div>
+    </div>
+
+    <div layout:fragment="javascripts">
+        <script th:src="@{/javascripts/scripts.js}" th:type="'text/javascript'"></script>
+    </div>
+</body>
+</html>

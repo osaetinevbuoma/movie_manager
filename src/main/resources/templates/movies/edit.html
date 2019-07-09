@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/movies}">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Movie</title>
+</head>
+<body>
+    <div layout:fragment="sidebar">
+        <div th:replace="fragments/sidebar :: sidebar(${categories})"></div>
+    </div>
+
+    <div layout:fragment="movie_content">
+        <h1>Edit Movie</h1>
+        <hr/>
+
+        <div th:if="${flashSuccess}">
+            <div th:replace="fragments/alert :: alert(type='success', message=${flashSuccess})"></div>
+        </div>
+
+        <form th:object="${movie}" th:method="put" th:action="@{/movies/edit/} + ${movie.id}">
+            <h5>Movie Information</h5><hr>
+            <div th:class="'form-group'">
+                <input th:type="'text'" th:class="'form-control'" th:placeholder="'Title'"
+                       th:required="true" th:field="*{title}" th:name="'title'" />
+            </div>
+            <div th:class="'form-group'">
+                <textarea th:class="'form-control'" th:placeholder="'Overview'" th:required="true"
+                          th:field="*{overview}" th:name="'overview'" th:rows="5"></textarea>
+            </div>
+            <div th:class="'row'">
+                <div th:class="'col'">
+                    <div th:class="'form-group'">
+                        <input th:type="'text'" th:class="'form-control'"
+                               th:placeholder="'Release Date (yyyy-mm-dd)'" th:required="true"
+                               th:field="*{releaseDate}" th:name="'releaseDate'" />
+                    </div>
+                </div>
+                <div th:class="'col'">
+                    <div th:class="'form-group'">
+                        <input th:type="'number'" th:class="'form-control'" th:placeholder="'Runtime'"
+                               th:required="true" th:field="*{runtime}" th:name="'runtime'" />
+                    </div>
+                </div>
+                <div th:class="'col'">
+                    <div th:class="'form-group'">
+                        <textarea th:class="'form-control'" th:placeholder="'Genre (Action, Drama, e.t.c...)'"
+                                  th:required="true" th:field="*{genre}" th:name="'genre'"
+                                  th:rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div th:class="'row'">
+                <div th:class="'col'">
+                    <div th:class="'form-group'">
+                        <input th:type="'text'" th:class="'form-control'" th:placeholder="'Director'"
+                               th:required="true" th:field="*{director}" th:name="'director'" />
+                    </div>
+                </div>
+                <div th:class="'col'">
+                    <div th:class="'form-group'">
+                        <textarea th:class="'form-control'" th:placeholder="'Cast (John Doe, Jane Doe, e.t.c...)'"
+                                  th:required="true" th:field="*{cast}" th:name="'cast'"
+                                  th:rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div th:class="'row'">
+                <div th:class="'col'">
+                    <div th:class="'form-group'">
+                        <input th:type="'text'" th:class="'form-control'" th:placeholder="'Poster Path'"
+                               th:required="true" th:field="*{posterPath}" th:name="'posterPath'" />
+                    </div>
+                </div>
+                <div th:class="'col'">
+                    <div th:class="'form-group'">
+                        <input th:type="'text'" th:class="'form-control'" th:placeholder="'Backdrop Path'"
+                               th:required="true" th:field="*{backdropPath}" th:name="'backdropPath'" />
+                    </div>
+                </div>
+            </div>
+            <h5>Movie Categories</h5> <hr>
+            <div th:class="'form-group'">
+                <select th:multiple="true"
+                        th:class="'form-control'" th:name="'type[]'">
+                    <option th:each="category : ${categories}" th:value="${category.id}"
+                            th:text="${category.type}"
+                            th:selected="${movie.categories.contains(category) ? true : false}"></option>
+                </select>
+            </div>
+            <hr/>
+            <button th:class="'btn btn-primary'" th:text="'Submit'"></button> &nbsp;
+            <a th:href="@{/movies}" th:class="'btn btn-link'" th:text="'Cancel'"></a>
+        </form>
+    </div>
+</body>
+</html>

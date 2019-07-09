@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/movies}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Movie Details - ' + ${movie.title}"></title>
+    <style>
+        body {
+            padding-top: 3.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="backdrop">
+        <div class="img">
+            <div class="overlay"></div>
+            <img th:src="'https://image.tmdb.org/t/p/original/' + ${movie.backdropPath}" th:class="'img-fluid'">
+        </div>
+    </div>
+
+    <div layout:fragment="sidebar">
+        <div th:replace="fragments/sidebar :: sidebar(${categories})"></div>
+    </div>
+
+    <div layout:fragment="movie_content">
+        <div class="row">
+            <div class="col-3">
+                <img th:src="'https://image.tmdb.org/t/p/original/' + ${movie.posterPath}" th:class="'img-fluid'">
+            </div>
+            <div class="col">
+                <div th:class="'form-group'">
+                    <h2 th:text="${movie.title}"></h2>
+                </div>
+
+                <div th:class="'form-group'">
+                    <h3>Overview</h3>
+                    <p th:text="${movie.overview}"></p>
+                </div>
+
+                <div th:class="'form-group'">
+                    <div th:class="'row'">
+                        <div th:class="'col'">
+                            <h4>Release Date</h4>
+                            <p th:text="${T(com.modnsolutions.moviemanager.utils.Utilities).formatDate(movie.releaseDate)}"></p>
+                        </div>
+                        <div th:class="'col'">
+                            <h4>Runtime</h4>
+                            <p th:text="${T(com.modnsolutions.moviemanager.utils.Utilities).convertMinutesToStringTime(movie.runtime)}"></p>
+                        </div>
+                        <div th:class="'col'">
+                            <h4>Genre</h4>
+                            <p th:text="${movie.genre}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:class="'form-group'">
+                    <div th:class="'row'">
+                        <div th:class="'col'">
+                            <h4>Director</h4>
+                            <p th:text="${movie.director}"></p>
+                        </div>
+                        <div th:class="'col'">
+                            <h4>Cast</h4>
+                            <p th:text="${movie.cast}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

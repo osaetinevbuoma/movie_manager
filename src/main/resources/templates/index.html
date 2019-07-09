@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Manager</title>
+</head>
+<body>
+    <div class="starter-template" layout:fragment="content">
+        <h1>Actions</h1>
+        <div class="list-group">
+            <a th:href="@{/categories}" class="list-group-item list-group-item-action">Manage Movie
+                Categories</a>
+            <a th:href="@{/movies}" class="list-group-item list-group-item-action">Manage Movies</a>
+        </div>
+    </div>
+</body>
+</html>

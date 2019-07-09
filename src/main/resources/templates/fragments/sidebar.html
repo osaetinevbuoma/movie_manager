@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+<div th:fragment="sidebar(categories)">
+    <h2>Categories</h2> <hr/>
+    <div class="list-group" th:each="category : ${categories}">
+        <a th:href="@{/movies(category=${category.id})}" th:text="${category.type}"></a>
+    </div>
+</div>
+</body>
+</html>

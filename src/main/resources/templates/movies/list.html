@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/movies}">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+</head>
+<body>
+    <div layout:fragment="sidebar">
+        <div th:replace="fragments/sidebar :: sidebar(${categories})"></div>
+    </div>
+
+    <div layout:fragment="movie_content">
+        <h1>Movies</h1>
+
+        <a th:href="@{/movies/create}" class="btn btn-primary">Add Movies</a>
+        <hr/>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody th:if="${movies}">
+            <tr th:each="movie : ${movies}">
+                <td th:text="${movie.title}"></td>
+                <td>
+                    <a th:href="@{/movies/details/} + ${movie.id}">Details</a>
+                </td>
+                <td>
+                    <a th:href="@{/movies/edit/} + ${movie.id}">Edit</a>
+                </td>
+                <td>
+                    <a href="#" class="text-danger delete-movie" th:id="${movie.id}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <nav th:if="${movies}">
+            <ul class="pagination" th:if="${movies.totalPages > 0}">
+                <li class="page-item" th:classappend="${movies.number + 1==1} ? disabled">
+                    <a class="page-link"
+                       th:href="@{/movies(category=${category}, page=${movies.number})}">
+                        <span aria-hidden="true">&laquo;</span></a>
+                </li>
+                <li th:class="'page-item'" th:each="pageNumber: ${pageNumbers}"
+                    th:classappend="${pageNumber==movies.number + 1} ? active">
+                    <a th:href="@{/movies(category=${category}, page=${pageNumber})}"
+                       th:text="${pageNumber}" class="page-link"></a>
+                </li>
+                <li class="page-item"
+                    th:classappend="${movies.number + 1==movies.totalPages} ? disabled">
+                    <a class="page-link"
+                       th:href="@{/movies(category=${category}, page=${movies.number + 2})}">
+                        <span aria-hidden="true">&raquo;</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div layout:fragment="javascripts">
+        <script th:src="@{/javascripts/scripts.js}" th:type="'text/javascript'"></script>
+    </div>
+</body>
+</html>

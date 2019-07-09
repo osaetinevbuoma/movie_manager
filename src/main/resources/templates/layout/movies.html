@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+    <head>
+        <meta charset="UTF-8">
+        <title>Movies</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="row">
+                <div class="col-2">
+                    <div layout:fragment="sidebar"></div>
+                </div>
+
+                <div class="col align-self-center">
+                    <div layout:fragment="movie_content"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
